@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>YourName Music - Pro</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="mobile-header">
+        <div class="logo"><i class="fas fa-music"></i> <span>Music Pro</span></div>
+        <button id="mobileMenuBtn" class="mobile-btn"><i class="fas fa-bars"></i></button>
+    </div>
+
+    <div class="sidebar" id="sidebar">
+        <div class="logo desktop-only">
+            <i class="fas fa-music"></i>
+            <span>Music Pro</span>
+        </div>
+        <nav>
+            <a href="#" class="nav-item active" id="homeBtn"><i class="fas fa-home"></i><span>Home</span></a>
+            <a href="#" class="nav-item" id="searchBtn"><i class="fas fa-search"></i><span>Search</span></a>
+            <a href="#" class="nav-item"><i class="fas fa-book"></i><span>Library</span></a>
+        </nav>
+        <div class="sidebar-footer">
+            <a href="#" class="nav-item" id="openAddAlbumBtn"><i class="fas fa-plus"></i><span>Create Album</span></a>
+            <a href="#" class="nav-item" id="loginBtn"><i class="fas fa-user"></i><span id="profileText">Login</span></a>
+        </div>
+    </div>
+
+    <main class="main-content">
+        <section class="hero">
+            <div class="hero-content">
+                <h1 id="welcomeText">Welcome to Music Pro</h1>
+                <p>Discover, play, and enjoy your favorite tracks seamlessly.</p>
+            </div>
+        </section>
+
+        <section class="albums-section search-section" id="searchSection" style="display: none;">
+            <div class="search-bar-container">
+                <i class="fas fa-search"></i>
+                <input type="text" id="searchInput" placeholder="Search for albums or songs...">
+            </div>
+            <h2>Search Results</h2>
+            <div class="albums-grid" id="searchResultsGrid"></div>
+        </section>
+
+        <section class="albums-section" id="homeSection">
+            <h2>Your Albums</h2>
+            <div class="albums-grid" id="albumsGrid"></div>
+        </section>
+    </main>
+
+    <div class="player-container">
+        <div class="player" id="player">
+            <div class="player-track">
+                <img src="https://via.placeholder.com/60x60/1db954/ffffff?text=♪" alt="Cover" id="playerCover" class="player-cover">
+                <div class="track-info">
+                    <div class="track-title" id="trackTitle">Ready to play</div>
+                    <div class="track-artist" id="trackArtist">Select a song</div>
+                </div>
+            </div>
+            <div class="player-controls">
+                <div class="control-buttons">
+                    <button class="control-btn prev" id="prevBtn"><i class="fas fa-step-backward"></i></button>
+                    <button class="control-btn play-pause" id="playPauseBtn"><i class="fas fa-play"></i></button>
+                    <button class="control-btn next" id="nextBtn"><i class="fas fa-step-forward"></i></button>
+                </div>
+                <div class="progress-container desktop-only">
+                    <span class="current-time" id="currentTime">0:00</span>
+                    <div class="progress-bar" id="progressBar">
+                        <div class="progress" id="progress"></div>
+                    </div>
+                    <span class="duration" id="duration">0:00</span>
+                </div>
+            </div>
+            <div class="player-volume desktop-only">
+                <button id="muteBtn" class="control-btn"><i class="fas fa-volume-up"></i></button>
+                <input type="range" min="0" max="100" value="70" id="volumeSlider">
+            </div>
+        </div>
+        <div class="mobile-progress mobile-only" id="mobileProgressBar">
+            <div class="progress" id="mobileProgress"></div>
+        </div>
+    </div>
+
+    <div class="bottom-nav mobile-only">
+        <a href="#" class="nav-item active" id="bottomHomeBtn"><i class="fas fa-home"></i><span>Home</span></a>
+        <a href="#" class="nav-item" id="bottomSearchBtn"><i class="fas fa-search"></i><span>Search</span></a>
+        <a href="#" class="nav-item" id="bottomLibraryBtn"><i class="fas fa-book"></i><span>Library</span></a>
+    </div>
+
+    <div class="modal" id="songModal"><div class="modal-content" id="songModalContent"></div></div>
+    
+    <div class="modal" id="loginModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Login</h3>
+                <button class="close-modal"><i class="fas fa-times"></i></button>
+            </div>
+            <form id="loginForm" class="custom-form">
+                <input type="text" id="usernameInput" placeholder="Enter your name" required>
+                <button type="submit" class="btn-primary">Login</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="modal" id="createAlbumModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Add New Album</h3>
+                <button class="close-modal"><i class="fas fa-times"></i></button>
+            </div>
+            <form id="createAlbumForm" class="custom-form">
+                <input type="text" id="albumTitle" placeholder="Album Title" required>
+                <input type="url" id="albumCover" placeholder="Album Cover Image URL" required>
+                <h4 style="margin: 15px 0 5px 0; color: #1db954;">First Song</h4>
+                <input type="text" id="songTitle" placeholder="Song Title" required>
+                <input type="text" id="songArtist" placeholder="Artist Name" required>
+                <input type="url" id="songUrl" placeholder="Audio File URL (MP3)" required>
+                <button type="submit" class="btn-primary" style="margin-top: 15px;">Create Album</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="toastContainer" class="toast-container"></div>
+
+    <audio id="audioPlayer"></audio>
+    <script src="script.js"></script>
+</body>
+</html>
