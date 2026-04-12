@@ -1,6 +1,6 @@
 // 1. إعدادات Supabase (تأكد من وجود علامات التنصيص)
-const SUPABASE_URL = 'https://pfcbjxugkulvzvioxogt.supabase.co';
-const SUPABASE_KEY = 'sb_publishable_2KCCx-Agm4GGw_tPGrlTVQ_Ye7bp4Qn';
+const SUPABASE_URL ='https://pfcbjxugkulvzvioxogt.supabase.co';
+const SUPABASE_KEY ='sb_publishable_2KCCx-Agm4GGw_tPGrlTVQ_Ye7bp4Qn';
 const _supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
 class MusicPro {
