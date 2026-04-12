@@ -45,18 +45,42 @@ class MusicPro {
         }
     }
 
-    renderAlbums(albums, containerId) {
-        const container = document.getElementById(containerId);
-        container.innerHTML = albums.map(album => `
-            <div class="album-card" onclick="app.playAlbum(${album.id})">
-                <img src="${album.cover_url}" alt="${album.title}">
-                <div class="album-info">
-                    <strong>${album.title}</strong>
-                    <p>${album.artist || 'فنان مجهول'}</p>
+   renderAlbums(albumsToRender, containerId) {
+    const container = document.getElementById(containerId);
+    
+    // 1. التحقق من وجود الحاوية لتجنب أخطاء Console
+    if (!container) return;
+
+    // 2. حالة عدم وجود بيانات
+    if (!albumsToRender || albumsToRender.length === 0) {
+        container.innerHTML = `
+            <div style="grid-column: 1/-1; text-align: center; padding: 50px; color: #666;">
+                <i class="fas fa-compact-disc fa-spin" style="font-size: 2rem; margin-bottom: 10px;"></i>
+                <p>No cinematic collections found in your library.</p>
+            </div>`;
+        return;
+    }
+
+    // 3. بناء الواجهة (English UI)
+    container.innerHTML = albumsToRender.map(album => `
+        <div class="album-card" onclick="app.playAlbum('${album.id}')">
+            <div class="image-container">
+                <img src="${album.cover_url}" 
+                     alt="${album.title}" 
+                     class="album-cover" 
+                     onerror="this.src='https://via.placeholder.com/300x300/121212/ffffff?text=No+Cover'">
+                <div class="play-overlay">
+                    <i class="fas fa-play"></i>
                 </div>
             </div>
-        `).join('');
-    }
+            <div class="album-info">
+                <strong class="album-name">${album.title}</strong>
+                <span class="artist-name">${album.artist || 'Unknown Artist'}</span>
+            </div>
+        </div>
+    `).join('');
+}
+    
 
     playSong(song) {
         this.currentSong = song;
