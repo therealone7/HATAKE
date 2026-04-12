@@ -1,89 +1,217 @@
+/* الأساسيات وتصفير المسافات */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Inter', sans-serif;
+}
+
 :root {
     --primary-green: #1db954;
-    --glass-bg: rgba(255, 255, 255, 0.05);
+    --main-bg: #0a0a0a;
+    --sidebar-bg: #000000;
+    --card-bg: rgba(255, 255, 255, 0.05);
     --glass-border: rgba(255, 255, 255, 0.1);
-    --dark-bg: #0a0a0a;
 }
 
 body {
-    font-family: 'Inter', sans-serif;
-    background: radial-gradient(circle at top left, #1e1e1e, #0a0a0a);
-    color: #ffffff;
-    margin: 0;
-    overflow-x: hidden;
+    background-color: var(--main-bg);
+    color: white;
+    height: 100vh;
+    overflow: hidden;
 }
 
-/* Sidebar Styling */
-.sidebar {
-    background: rgba(0, 0, 0, 0.4);
-    backdrop-filter: blur(25px);
-    border-right: 1px solid var(--glass-border);
+/* تقسيم الشاشة */
+.app-container {
+    display: grid;
+    grid-template-columns: 260px 1fr;
+    grid-template-rows: 1fr 90px;
     height: 100vh;
-    padding: 2rem 1.5rem;
+}
+
+/* القائمة الجانبية - Sidebar */
+.sidebar {
+    background-color: var(--sidebar-bg);
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--primary-green);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.nav-menu {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
 }
 
 .nav-link {
+    text-decoration: none;
+    color: #b3b3b3;
+    font-weight: 600;
+    padding: 10px;
+    border-radius: 8px;
+    transition: 0.3s;
     display: flex;
     align-items: center;
     gap: 15px;
-    color: #b3b3b3;
-    text-decoration: none;
-    padding: 12px 15px;
-    border-radius: 10px;
-    transition: 0.3s;
 }
 
 .nav-link:hover, .nav-link.active {
-    background: var(--glass-bg);
-    color: var(--primary-green);
+    color: white;
+    background: var(--card-bg);
 }
 
-/* Album Card - Cinematic Look */
+/* المحتوى الرئيسي */
+.main-content {
+    background: linear-gradient(to bottom, #1e1e1e, #0a0a0a);
+    overflow-y: auto;
+    padding: 30px;
+    padding-bottom: 120px;
+}
+
+.top-bar {
+    margin-bottom: 40px;
+}
+
+.welcome-msg h1 {
+    font-size: 2rem;
+    margin-bottom: 5px;
+}
+
+.welcome-msg p {
+    color: #b3b3b3;
+}
+
+/* شبكة الألبومات - Grid */
+.grid-layout {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 24px;
+}
+
+/* كرت الألبوم */
 .album-card {
-    background: var(--glass-bg);
-    backdrop-filter: blur(10px);
+    background: var(--card-bg);
+    padding: 16px;
+    border-radius: 12px;
     border: 1px solid var(--glass-border);
-    border-radius: 15px;
-    padding: 15px;
+    transition: 0.3s;
     cursor: pointer;
-    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
 .album-card:hover {
-    transform: scale(1.05);
-    background: rgba(255, 255, 255, 0.08);
+    background: rgba(255, 255, 255, 0.1);
+    transform: translateY(-5px);
 }
 
 .album-cover {
     width: 100%;
     aspect-ratio: 1/1;
+    border-radius: 8px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.5);
+    margin-bottom: 15px;
     object-fit: cover;
-    border-radius: 10px;
-    margin-bottom: 12px;
 }
 
-/* Player Bar */
+/* شريط المشغل - Player Bar */
 .player-bar {
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-    background: rgba(10, 10, 10, 0.7);
-    backdrop-filter: blur(30px);
+    grid-column: 1 / -1;
+    background-color: #121212;
     border-top: 1px solid var(--glass-border);
-    display: flex;
-    justify-content: space-between;
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr;
     align-items: center;
-    padding: 15px 30px;
+    padding: 0 20px;
+    z-index: 100;
+}
+
+.player-info {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.player-info img {
+    width: 56px;
+    height: 56px;
+    border-radius: 4px;
+}
+
+.player-controls {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+}
+
+.buttons {
+    display: flex;
+    align-items: center;
+    gap: 20px;
 }
 
 .play-btn {
-    background: var(--primary-green);
+    background: white;
     border: none;
-    width: 50px;
-    height: 50px;
+    width: 35px;
+    height: 35px;
     border-radius: 50%;
-    color: black;
-    font-size: 1.2rem;
     cursor: pointer;
-    box-shadow: 0 0 20px rgba(29, 185, 84, 0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: 0.2s;
+}
+
+.play-btn:hover {
+    transform: scale(1.1);
+}
+
+.progress-wrapper {
+    width: 100%;
+    max-width: 500px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.progress-container {
+    flex: 1;
+    height: 4px;
+    background: #4f4f4f;
+    border-radius: 2px;
+    position: relative;
+    cursor: pointer;
+}
+
+.progress-fill {
+    height: 100%;
+    background: white;
+    width: 0%;
+    border-radius: 2px;
+}
+
+.time {
+    font-size: 12px;
+    color: #b3b3b3;
+}
+
+/* خاص بالهواتف */
+@media (max-width: 768px) {
+    .app-container {
+        grid-template-columns: 1fr;
+    }
+    .sidebar {
+        display: none; /* يمكننا إضافة قائمة جانبية منزلقة لاحقاً */
+    }
 }
