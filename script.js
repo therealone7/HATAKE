@@ -1,6 +1,6 @@
 // إعدادات Supabase - ضع روابط مشروعك هنا
-const SUPABASE_URL = https://pfcbjxugkulvzvioxogt.supabase.co;
-const SUPABASE_KEY = sb_publishable_2KCCx-Agm4GGw_tPGrlTVQ_Ye7bp4Qn;
+const SUPABASE_URL = 'https://pfcbjxugkulvzvioxogt.supabase.co';
+const SUPABASE_KEY = 'sb_publishable_2KCCx-Agm4GGw_tPGrlTVQ_Ye7bp4Qn';
 const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
 class MusicPro {
@@ -16,7 +16,7 @@ class MusicPro {
     this.updateAuthUI();
     
     // جلب البيانات من سوبابيز بدلاً من getDefaultAlbums
-    const { data, error } = await _supabase.from('albums').select('*');
+    const { data, error } = await supabase.from('albums').select('*');
     
     if (error) {
         console.error("Error:", error);
@@ -80,7 +80,27 @@ class MusicPro {
         </div>
     `).join('');
 }
-    
+ async playAlbum(albumId) {
+        // 1. البحث عن بيانات الألبوم في المصفوفة الحالية
+        const album = this.albums.find(a => a.id == albumId);
+        
+        if (!album) return;
+
+        console.log(`Playing Album: ${album.title}`);
+
+        // 2. تحديث واجهة المشغل (Player) ببيانات الألبوم
+        document.getElementById('trackTitle').textContent = album.title;
+        document.getElementById('trackArtist').textContent = album.artist || 'Unknown Artist';
+        document.getElementById('playerCover').src = album.cover_url;
+
+        // 3. منطق تشغيل الأغنية الأولى (إذا كان لديك عمود للأغاني في سوبابيز)
+        if (album.songs && album.songs.length > 0) {
+            this.playSong(album.songs[0]);
+        } else {
+            // تنبيه بسيط في حال كان الألبوم فارغاً من الأغاني
+            console.warn("This album has no songs yet.");
+        }
+    }   
 
     playSong(song) {
         this.currentSong = song;
