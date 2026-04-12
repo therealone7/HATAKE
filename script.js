@@ -13,10 +13,23 @@ class MusicPro {
     }
 
     async init() {
-        this.bindEvents();
-        await this.loadAlbums();
-        this.setupMediaSession();
+    this.updateAuthUI();
+    
+    // جلب البيانات من سوبابيز بدلاً من getDefaultAlbums
+    const { data, error } = await _supabase.from('albums').select('*');
+    
+    if (error) {
+        console.error("Error:", error);
+        this.albums = this.getDefaultAlbums(); // كخطة بديلة في حال فشل الاتصال
+    } else {
+        this.albums = data;
     }
+
+    this.renderAlbums(this.albums, 'albumsGrid');
+    this.bindEvents();
+    this.audio.volume = this.previousVolume;
+    this.restorePlayerState();
+}
 
     // جلب البيانات من Supabase بدلاً من LocalStorage
     async loadAlbums() {
