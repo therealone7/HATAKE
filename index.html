@@ -1,14 +1,16 @@
 <!DOCTYPE html>
-<head>
+<html lang="en"> <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Music Pro | تجربة سينمائية</title>
+    <title>Music Pro | Cinematic Experience</title>
+    
     <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
-<body>
+<body class="dark-theme">
     <div class="app-container">
         <aside class="sidebar" id="sidebar">
             <div class="logo">
@@ -16,16 +18,16 @@
                 <span>Music Pro</span>
             </div>
             <nav class="nav-menu">
-                <a href="#" class="nav-link active" id="homeBtn"><i class="fas fa-home"></i> الرئيسية</a>
-                <a href="#" class="nav-link" id="searchBtn"><i class="fas fa-search"></i> البحث</a>
-                <a href="#" class="nav-link"><i class="fas fa-heart"></i> المفضلة</a>
+                <a href="#" class="nav-link active" id="homeBtn"><i class="fas fa-home"></i> Home</a>
+                <a href="#" class="nav-link" id="searchBtn"><i class="fas fa-search"></i> Search</a>
+                <a href="#" class="nav-link"><i class="fas fa-heart"></i> Favorites</a>
             </nav>
             <div class="sidebar-divider"></div>
             <div class="user-section">
-                <button class="btn-create" id="openAddAlbumBtn"><i class="fas fa-plus-circle"></i> إنشاء ألبوم</button>
+                <button class="btn-create" id="openAddAlbumBtn"><i class="fas fa-plus-circle"></i> Create Album</button>
                 <div class="profile-card" id="loginBtn">
                     <img src="https://ui-avatars.com/api/?name=User&background=1db954&color=fff" alt="Avatar" id="userAvatar">
-                    <span id="profileText">تسجيل الدخول</span>
+                    <span id="profileText">Sign In</span>
                 </div>
             </div>
         </aside>
@@ -34,22 +36,23 @@
             <header class="top-bar">
                 <button id="mobileMenuBtn" class="mobile-only"><i class="fas fa-bars"></i></button>
                 <div class="welcome-msg">
-                    <h1 id="welcomeText">مرحباً بك</h1>
-                    <p>استمع لأجمل الألحان بجودة عالية</p>
+                    <h1 id="welcomeText">Welcome Back</h1>
+                    <p>Experience high-fidelity cinematic sound</p>
                 </div>
             </header>
 
             <section id="searchSection" class="content-section" style="display: none;">
                 <div class="search-wrapper">
                     <i class="fas fa-search"></i>
-                    <input type="text" id="searchInput" placeholder="ابحث عن أغنية، ألبوم أو فنان...">
+                    <input type="text" id="searchInput" placeholder="Search for tracks, albums, or artists...">
                 </div>
                 <div class="grid-layout" id="searchResultsGrid"></div>
             </section>
 
             <section id="homeSection" class="content-section">
-                <h2 class="section-title">الألبومات المقترحة</h2>
-                <div class="grid-layout" id="albumsGrid"></div>
+                <h2 class="section-title">Recommended Collections</h2>
+                <div class="grid-layout" id="albumsGrid">
+                    </div>
             </section>
         </main>
 
@@ -57,7 +60,7 @@
             <div class="player-info">
                 <img src="https://via.placeholder.com/60" alt="Cover" id="playerCover" class="glow-effect">
                 <div class="track-details">
-                    <div class="track-name" id="trackTitle">اختر أغنية</div>
+                    <div class="track-name" id="trackTitle">Select a Track</div>
                     <div class="track-artist" id="trackArtist">-</div>
                 </div>
             </div>
@@ -88,17 +91,16 @@
 
     <div class="modal-overlay" id="modalOverlay">
         <div class="modal-card" id="loginModal">
-            <h3>تسجيل الدخول</h3>
+            <h3>Account Access</h3>
             <form id="loginForm" class="glass-form">
-                <input type="text" id="usernameInput" placeholder="اسم المستخدم" required>
-                <input type="password" placeholder="كلمة المرور" required>
-                <button type="submit" class="btn-primary">دخول</button>
+                <input type="text" id="usernameInput" placeholder="Username" required>
+                <input type="password" placeholder="Password" required>
+                <button type="submit" class="btn-primary">Sign In</button>
             </form>
         </div>
     </div>
 
     <audio id="audioPlayer"></audio>
-    <div id="toastContainer"></div>
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="script.js"></script>
 </body>
 </html>
